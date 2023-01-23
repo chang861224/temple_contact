@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+<title>測試？？ - 登入頁面</title>
+{% endblock %}
+
+{% block css %}
+<link href='{% static "css/login.css" %}' rel='stylesheet' type='text/css' media='all'>
+{% endblock %}
+
+{% block fieldset_title %}
+登入喔
+{% endblock %}
+
+{% block content %}
+<div id="login-form">
+    <form action='.' method="POST">
+        {% csrf_token %}
+        <table class='loginPage'>
+            <tr>
+                <td>帳　　號：</td>
+                <td><input name='username' required></td>
+            </tr>
+            <tr>
+                <td>密　　碼：</td>
+                <td><input name='password' type='password' required></td>
+            </tr>
+            <tr>
+                <td colspan=2>
+                    <input type='reset'>
+                    <input type='submit'>
+
+                    {{ message }}
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+{% endblock %}

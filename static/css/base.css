@@ -1,0 +1,209 @@
+@charset 'UTF-8';
+
+/*
+==================================================
+RESET CSS
+==================================================
+ */
+html, body, div, span, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+abbr, address, cite, code,
+del, dfn, em, img, ins, kbd, q, samp,
+small, strong, sub, sup, var,
+b, i,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, figcaption, figure,
+footer, header, main, menu, nav, section, summary,
+time, mark, audio, video{
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+}
+
+article, aside, details, figcaption, figure,
+footer, header, main, menu, nav, section{
+	display: block;
+}
+
+html{
+	-webkit-text-size-adjust: 100%;
+}
+
+body{
+	color: #59220d;
+	line-height: 1.5;
+	font-size: 16px;
+	font-family: sans-serif, "Microsoft JhengHei";
+}
+
+img{
+	border: 0;
+	max-width: 100%;
+	height: auto;
+}
+
+ul{
+	list-style-type: none;
+}
+
+table{
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+img, input, select, textarea{
+	vertical-align: middle;
+}
+
+a{
+	color: #59220d;
+	text-decoration: none;
+	transition: 0.5s;
+}
+
+a:hover{
+	color: #d53e04;
+}
+
+a:hover img{
+	opacity: 0.7;
+}
+
+
+
+/*
+==================================================
+BASE LAYOUT
+==================================================
+ */
+
+/* HEADER */
+#header{
+	/*height: 20vh;*/
+	height: 15%;
+	/*background: url(../images/bkg.jpg) center top no-repeat;
+	background-size: cover;
+	background-position-y: 70%;*/
+	background-color: #004b97;
+	background-size: cover;
+	text-align: center;
+	position: relative;
+	display: block;
+}
+#header div{
+	height: 100%;
+}
+
+#title{
+    width: 100%;
+	max-width: 840px;
+	padding: 6.9vh 0;
+	color: white;
+	font-size: 30px;
+	font-weight: bold;
+	/*display: table-cell;*/
+	vertical-align: middle;
+}
+#title a{
+	color: white;
+}
+
+/* BASIC DESIGN */
+#index{
+	min-height: 100vh;
+	background-color: #fdf2f2;
+}
+
+.inner{
+	max-width: 940px;
+	padding-left: 10px;
+	padding-right: 10px;
+	margin: auto;
+}
+.inner:after{
+	content: "";
+	display: block;
+	clear: both;
+}
+
+/* GNAV */
+#gnav{
+    height: 7%;
+	background-color: #46a3ff;
+}
+/*
+@media screen and (min-width: 640px){
+	#gnav{
+		height: 10vh;
+	}
+}
+*/
+#gnav ul{
+	height: 100%;
+	overflow: hidden;
+}
+#gnav li{
+	float: left;
+	width: 33.333333%;
+	text-align: center;
+	font-weight: bold;
+}
+#gnav a{
+	padding: 16px 0;
+	color: #fff;
+	text-decoration: none;
+	font-size: 16px;
+	display: block;
+}
+#gnav a:hover{
+	background-color: #004b97;
+}
+
+/* FIELDSET */
+.field{
+	width: inherit;
+    min-height: 50vh;
+	padding: 30px;
+	border: solid 1px;
+}
+
+.fieldset_title{
+	padding: 15px;
+	font-size: 25px;
+	font-weight: bold;
+	color: red;
+}
+
+
+/* CONTENTS */
+#contents{
+	width: 100%;
+	min-height: 65vh;
+	margin-top: 2%;
+	margin-bottom: 2%;
+	overflow-x: auto;
+}
+
+/* FOOTER */
+#footer{
+    padding-top: 10px;
+	background-color: #004b97;
+	color: white;
+	font-size: 12px;
+}
+#footer p a{
+	color: white;
+}
+@media screen and (min-width: 640px){
+	#footer{
+		font-size: 16px;
+	}
+}
+
+#footer p{
+    text-align: center;
+}
+

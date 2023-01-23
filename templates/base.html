@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+		{% block title %}{% endblock %}
+		<meta name='viewport' content='width=device-width,initial-scale=1.0'>
+
+		{% load static %}
+		<link href='{% static "css/base.css" %}' rel='stylesheet' type='text/css' media='all'>
+		{% block css %}{% endblock %}
+	</head>
+
+	<body id='index'>
+		<header id='header'>
+            <div class="inner">
+                <h1 id='title'><a href='/'>竹北大智寺</a></h1>
+            </div>
+		</header>
+
+		<nav id='gnav'> 
+			<ul class="inner">
+				<li><a href='#'>法會資料</a></li>
+				<li><a href='#'>家戶名單</a></li>
+				<li><a href='#'>人員名單</a></li>
+			</ul>
+		</nav>
+
+        <main id="contents">
+            <div class="inner">
+                <fieldset class="field">
+                    <legend class="fieldset_title">{% block fieldset_title %}{% endblock %}</legend>
+
+    				{% block content %}{% endblock %}
+                </fieldset>
+            </div>
+        </main>
+
+		<footer id='footer'>
+			<div class='inner'>
+				<!--ul class='sns'>
+					<li><a href='https://www.facebook.com/NCCUNCBA/' class='icon-facebook2' title='Facebook'></a></li>
+					<li><a href='mailto:nccuncba@gmail.com' class='icon-envelop' title='Email'></a></li>
+				</ul-->
+
+				{% if request.user.is_authenticated %}
+
+				<p>[ <a href='/logout/'>登出</a> ]</p>
+				
+				{% else %}
+				
+				<p>[ 請登入 ]</p>
+				
+				{% endif %}
+
+				<p>
+				<small>Copyright &copy; All Right Reserved.</small>
+				</p>
+			</div>
+		</footer>
+	</body>
+</html>
