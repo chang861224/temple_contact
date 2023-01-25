@@ -1,13 +1,28 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}
-<title>測試？？</title>
+{% block css %}
+<link href='{% static "css/index.css" %}' rel="stylesheet" type="text/css" media="all">
 {% endblock %}
-{% block fieldset_title %}這是首頁標題{% endblock %}
+
+{% block title %}
+<title>資料選擇</title>
+{% endblock %}
+{% block fieldset_title %}資料選擇{% endblock %}
 
 {% block content %}
 <div class='index'>
-    這裡是首頁內容
+    <div class="select">
+        <form action="." method="POST">
+            {% csrf_token %}
+            <select name="puja_select">
+                {% for puja in pujas %}
+                <option value="{{ puja.id }}">{{ puja.year }}-{{ puja.name }}</option>
+                {% endfor %}
+            </select>
+            
+            <input type="submit">
+        </form>
+    </div>
 </div>
 {% endblock %}
