@@ -1,12 +1,22 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from contact import models
 
 # Create your views here.
 def homepage(request):
     return redirect("/index/")
 
 
-def index(request):
+def index(request, pujaid=None):
+    if pujaid is not None:
+        data = models.DataUnit.objects.filter(puja__id=pujaid).order_by("id")
+        
+    pujas = models.PujaUnit.objects.all()
+
+    if request.method == "POST":
+        puja_id = request.POST["puja_select"]
+        return redirect("/index/%d" % puja_id)
+
     return render(request, "index.html", locals())
 
 
