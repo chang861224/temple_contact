@@ -22,6 +22,7 @@ urlpatterns = [
 
     path("", views.homepage),
     path("index/", views.index),
+    path("index/<int:pujaid>", views.index),
 
     path("register/", views.register),
     path("login/", views.login),
