@@ -20,6 +20,11 @@ def index(request, pujaid=None):
     return render(request, "index.html", locals())
 
 
+def pujalist(request):
+    pujalist = models.PujaUnit.objects.all()
+    return render(request, "pujalist.html", locals())
+
+
 def register(request):
     message = ""
 

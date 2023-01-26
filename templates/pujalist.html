@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css %}
+<link href='{% static "css/puja.css" %}' rel="stylesheet" type="text/css" media="all">
+{% endblock %}
+
+{% block title %}
+<title>法會清單</title>
+{% endblock %}
+
+{% block fieldset_title %}法會清單{% endblock %}
+
+{% block content %}
+<div class='index'>
+    <div class="puja-list">
+        <table class="puja-table">
+            <tr>
+                <th>操作/操作</th>
+                <th>年度</th>
+                <th>法會名稱</th>
+                <th>時間</th>
+            </tr>
+
+            {% for puja in pujalist %}
+
+            <tr>
+                <td>
+                    <a href="/pujaedit/{{ puja.id }}">編輯</a>
+                    <a href="/pujadelete/{{ puja.id }}">刪除</a>
+                </td>
+                <td>{{ puja.year }}</td>
+                <td>{{ puja.name }}</td>
+                <td>{{ puja.start }} ~ {{ puja.end }}</td>
+            </tr>
+
+            {% endfor %}
+        </table>
+    </div>
+</div>
+{% endblock %}
