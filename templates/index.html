@@ -24,5 +24,29 @@
             <input type="submit">
         </form>
     </div>
+
+    <div class="data-list">
+        <p class="puja-title">法會名稱</p>
+
+        <table class="data-table">
+            <tr>
+                <th>姓名</th>
+                <th>電話</th>
+                <th>地址</th>
+                <th>大牌/中牌</th>
+            </tr>
+
+            {% for data in datalist %}
+
+            <tr>
+                <td>{{ data.person.name }}</td>
+                <td>{{ data.person.contact }}</td>
+                <td>{{ data.person.address }}</td>
+                <td>{{ data.info_type }}</td>
+            </tr>
+
+            {% endfor %}
+        </table>
+    </div>
 </div>
 {% endblock %}

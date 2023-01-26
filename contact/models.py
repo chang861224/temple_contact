@@ -3,7 +3,7 @@ from django.db import models
 # Create your models here.
 class PersonUnit(models.Model):
     name = models.CharField(max_length=50, null=False)
-    _id = models.CharField(primary_key=True, max_length=10, null=False)
+    person_id = models.CharField(primary_key=True, max_length=10, null=False)
     natural = models.BooleanField(default=True)
     legal = models.BooleanField(default=False)
     address = models.CharField(max_length=100, default="")
@@ -28,7 +28,7 @@ class PujaUnit(models.Model):
 class DataUnit(models.Model):
     person = models.ForeignKey("PersonUnit", on_delete=models.CASCADE, null=False)
     puja = models.ForeignKey("PujaUnit", on_delete=models.CASCADE, null=False)
-    _type = models.CharField(max_length=5, null=False)
+    info_type = models.CharField(max_length=5, null=False)
 
     def __str__(self):
         return "%s-%s" % (person.__str__(), puja.__str__())

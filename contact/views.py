@@ -9,7 +9,7 @@ def homepage(request):
 
 def index(request, pujaid=None):
     if pujaid is not None:
-        data = models.DataUnit.objects.filter(puja__id=pujaid).order_by("id")
+        datalist = models.DataUnit.objects.filter(puja__id=pujaid).order_by("id")
         
     pujas = models.PujaUnit.objects.all()
 

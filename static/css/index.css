@@ -5,3 +5,58 @@
     margin-top: 20px;
     margin-bottom: 20px;
 }
+
+.data-list{
+    width: 90%;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.puja-title{
+    padding-bottom: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    color: blue;
+    text-align: center;
+}
+
+.data-table{
+    width: 100%;
+}
+
+.data-table th,
+.data-table td{
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+
+.data-table th:first-child,
+.data-table td:first-child{
+    width: 25%;
+}
+
+.data-table th:nth-child(2),
+.data-table td:nth-child(2){
+    width: 20%;
+}
+
+.data-table th:last-child,
+.data-table td:last-child{
+    width: 10%;
+}
+
+.data-table th{
+    font-size: 14px;
+    background-color: #70b9dd;
+}
+
+.data-table tr:nth-child(2n-1){
+    background-color: rgb(216, 214, 215);
+}
+
+.data-table tr:nth-child(2n){
+    background-color: rgb(236, 236, 236);
+}
+
