@@ -1,0 +1,55 @@
+.person-list{
+    width: 90%;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.person-table{
+    width: 100%;
+}
+
+.person-table th,
+.person-table td{
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+
+.person-table th:first-child,
+.person-table td:first-child{
+    width: 10%;
+}
+
+.person-table th:nth-child(2),
+.person-table td:nth-child(2){
+    width: 15%;
+}
+
+.person-table th:nth-child(3),
+.person-table td:nth-child(3){
+    width: 20%;
+}
+
+.person-table th:nth-child(4),
+.person-table td:nth-child(4){
+    width: 20%;
+}
+
+.person-table th{
+    font-size: 14px;
+    background-color: #70b9dd;
+}
+
+.person-table td:last-child{
+    text-align: left;
+}
+
+.person-table tr:nth-child(2n-1){
+    background-color: rgb(216, 214, 215);
+}
+
+.person-table tr:nth-child(2n){
+    background-color: rgb(236, 236, 236);
+}
+

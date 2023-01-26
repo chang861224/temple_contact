@@ -25,6 +25,11 @@ def pujalist(request):
     return render(request, "pujalist.html", locals())
 
 
+def personlist(request):
+    persons = models.PersonUnit.objects.all()
+    return render(request, "personlist.html", locals())
+
+
 def register(request):
     message = ""
 

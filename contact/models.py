@@ -3,17 +3,14 @@ from django.db import models
 # Create your models here.
 class PersonUnit(models.Model):
     name = models.CharField(max_length=50, null=False)
-    person_id = models.CharField(primary_key=True, max_length=10, null=False)
+    person_id = models.CharField(primary_key=True, max_length=20, null=False)
     natural = models.BooleanField(default=True)
     legal = models.BooleanField(default=False)
     address = models.CharField(max_length=100, default="")
     contact = models.CharField(max_length=20, default="")
 
     def __str__(self):
-        if self.legal:
-            return "%s (%s)" % (self.name, self._id)
-
-        return "%s (%s*****%s)" % (self.name, self._id[:3], self._id[:2])
+        return "%s (%s)" % (self.name, self.person_id)
 
 
 class PujaUnit(models.Model):

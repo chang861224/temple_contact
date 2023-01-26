@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css %}
+<link href='{% static "css/person.css" %}' rel="stylesheet" type="text/css" media="all">
+{% endblock %}
+
+{% block title %}
+<title>人員清單</title>
+{% endblock %}
+
+{% block fieldset_title %}人員清單{% endblock %}
+
+{% block content %}
+<div class='index'>
+    <div class="person-list">
+        <table class="person-table">
+            <tr>
+                <th>操作</th>
+                <th>姓名</th>
+                <th>ID</th>
+                <th>電話</th>
+                <th>地址</th>
+            </tr>
+
+            {% for person in personlist %}
+
+            <tr>
+                <td>
+                    <a href="/personedit/{{ person.id }}">編輯</a>
+                    <a href="/persondelete/{{ person.id }}">刪除</a>
+                </td>
+                <td>{{ person.name }}</td>
+                <td>{{ person.person_id }}</td>
+                <td>{{ person.contact }}</td>
+                <td>{{ person.address }}</td>
+            </tr>
+
+            {% endfor %}
+        </table>
+    </div>
+</div>
+{% endblock %}

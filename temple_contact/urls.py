@@ -25,6 +25,7 @@ urlpatterns = [
     path("index/<int:pujaid>", views.index),
     
     path("pujalist/", views.pujalist),
+    path("personlist/", views.personlist),
 
     path("register/", views.register),
     path("login/", views.login),
