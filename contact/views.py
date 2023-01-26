@@ -25,9 +25,29 @@ def pujalist(request):
     return render(request, "pujalist.html", locals())
 
 
+def pujaedit(request, pujaid=None):
+    return redirect("/pujalist/")
+
+
+def pujadelete(request, pujaid=None):
+    puja = models.PujaUnit.objects.get(id=pujaid)
+    puja.delete()
+    return redirect("/pujalist/")
+
+
 def personlist(request):
-    persons = models.PersonUnit.objects.all()
+    personlist = models.PersonUnit.objects.all()
     return render(request, "personlist.html", locals())
+
+
+def personedit(request, personid=None):
+    return redirect("/personlist/")
+
+
+def persondelete(request, personid=None):
+    person = models.PersonUnit.objects.get(id=personid)
+    person.delete()
+    return redirect("/personlist/")
 
 
 def register(request):
