@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css %}
+<link href='{% static "css/person.css" %}' rel="stylesheet" type="text/css" media="all">
+{% endblock %}
+
+{% block title %}
+<title>人員清單</title>
+{% endblock %}
+
+{% block fieldset_title %}人員清單{% endblock %}
+
+{% block content %}
+<div class='index'>
+    <div class="person-add">
+        <form action="." method="POST">
+            {% csrf_token %}
+            <p>姓名：<input name="name" value="{{ person.name }}" required></p>
+            <p>資料編號：{{ person.person_id }}</p>
+            <p>電話：<input name="phone" value="{{ person.contact }}"></p>
+            <p>地址：<input name="address" size="50" value="{{ person.address }}" required></p>
+            <p>
+                <input type="reset" value="清除">
+                <input type="submit" value="送出">
+            </p>
+        </form>
+    </div>
+</div>
+{% endblock %}
