@@ -21,22 +21,36 @@ def index(request, pujaid=None):
 
 
 def pujalist(request):
-    pujalist = models.PujaUnit.objects.all()
+    pujas = models.PujaUnit.objects.all()
     return render(request, "pujalist.html", locals())
 
 
 def pujaadd(request):
     if request.method == "POST":
+        puja = models.PujaUnit.objects.create(
+                year=request.POST["year"],
+                name=request.POST["name"],
+                start=request.POST["start"],
+                end=request.POST["end"]
+                )
+        puja.save()
         return redirect("/pujalist/")
+
     return render(request, "pujaadd.html", locals())
 
 
 def pujaedit(request, pujaid=None):
     puja = models.PujaUnit.objects.get(id=pujaid)
+    start_date_str = str(puja.start)
+    end_date_str = str(puja.end)
 
     if request.method == "POST":
+        puja.year = request.POST["year"],
+        puja.name = request.POST["name"],
+        puja.start = request.POST["start"],
+        puja.end = request.POST["end"]
+        puja.save()
         return redirect("/pujalist/")
-
     return render(request, "pujaedit.html", locals())
 
 
@@ -47,13 +61,21 @@ def pujadelete(request, pujaid=None):
 
 
 def personlist(request):
-    personlist = models.PersonUnit.objects.all()
+    persons = models.PersonUnit.objects.all()
     return render(request, "personlist.html", locals())
 
 
 def personadd(request):
     if request.method == "POST":
+        person = models.PersonUnit.objects.create(
+                name=request.POST["name"],
+                person_id=request.POST["personid"],
+                address=request.POST["address"],
+                contact=request.POST["phone"]
+                )
+        person.save()
         return redirect("/personlist/")
+
     return render(request, "personadd.html", locals())
 
 

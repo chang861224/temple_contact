@@ -16,7 +16,7 @@
     <div class="puja-add">
         <form action="." method="POST">
             {% csrf_token %}
-            <p>年度：<input name="year" type="number" min="2020" required></p>
+            <p>年度：<input name="year" type="number" min="105" max="150" required></p>
             <p>法會名稱：<select name="name">
                 <option value="" selected disabled>（請選擇）</option>
                 <option value="01">法華法會</option>

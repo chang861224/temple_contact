@@ -16,7 +16,7 @@
     <div class="puja-add">
         <form action="." method="POST">
             {% csrf_token %}
-            <p>年度：<input name="year" type="number" min="2020" value={{ puja.year }} required></p>
+            <p>年度：<input name="year" type="number" min="105" max="150" value={{ puja.year }} required></p>
             <p>法會名稱：<select name="name">
                 <option value="" selected disabled>（請選擇）</option>
                 {% if puja.name == "01" %}
@@ -45,8 +45,8 @@
                 <option value="07">盂蘭法會</option>
                 {% endif %}
             </select></p>
-            <p>開始日期：<input name="start" type="date" value="{{ puja.start }}" required></p>
-            <p>結束日期：<input name="end" type="date" value="{{puja.end }}" required></p>
+            <p>開始日期：<input name="start" type="date" value="{{ start_date_str }}" required></p>
+            <p>結束日期：<input name="end" type="date" value="{{ end_date_str }}" required></p>
             <p>
                 <input type="submit" value="送出">
             </p>

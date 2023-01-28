@@ -25,10 +25,12 @@ urlpatterns = [
     path("index/<int:pujaid>", views.index),
     
     path("pujalist/", views.pujalist),
-    path("personlist/", views.personlist),
-
     path("pujaadd/", views.pujaadd),
+    path("pujaedit/", views.pujaedit),
+    path("pujaedit/<int:pujaid>", views.pujaedit),
+    path("pujadelete/<int:pujaid>", views.pujadelete),
 
+    path("personlist/", views.personlist),
     path("personadd/", views.personadd),
     path("personedit/<int:personid>", views.personedit),
     path("persondelete/<int:personid>", views.persondelete),
