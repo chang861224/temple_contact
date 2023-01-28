@@ -13,7 +13,7 @@ class PersonUnit(models.Model):
 
 class PujaUnit(models.Model):
     # puja = 法會
-    year = models.IntegerField(default=2023, null=False)
+    year = models.IntegerField(default=112, null=False)
     name = models.CharField(max_length=10, null=False)
     start = models.DateField(null=False)
     end = models.DateField(null=False)
