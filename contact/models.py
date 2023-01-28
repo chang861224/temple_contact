@@ -4,8 +4,6 @@ from django.db import models
 class PersonUnit(models.Model):
     name = models.CharField(max_length=50, null=False)
     person_id = models.CharField(primary_key=True, max_length=20, null=False)
-#    natural = models.BooleanField(default=True)
-#    legal = models.BooleanField(default=False)
     address = models.CharField(max_length=100, default="")
     contact = models.CharField(max_length=20, default="")
 
