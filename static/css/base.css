@@ -186,6 +186,11 @@ BASE LAYOUT
 	overflow-x: auto;
 }
 
+.index{
+    width: 100%;
+    text-align: center;
+}
+
 /* FOOTER */
 #footer{
     padding-top: 10px;

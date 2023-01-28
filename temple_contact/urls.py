@@ -27,6 +27,12 @@ urlpatterns = [
     path("pujalist/", views.pujalist),
     path("personlist/", views.personlist),
 
+    path("pujaadd/", views.pujaadd),
+
+    path("personadd/", views.personadd),
+    path("personedit/<int:personid>", views.personedit),
+    path("persondelete/<int:personid>", views.persondelete),
+
     path("register/", views.register),
     path("login/", views.login),
     path("logout/", views.logout),

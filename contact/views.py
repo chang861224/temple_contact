@@ -25,8 +25,19 @@ def pujalist(request):
     return render(request, "pujalist.html", locals())
 
 
+def pujaadd(request):
+    if request.method == "POST":
+        return redirect("/pujalist/")
+    return render(request, "pujaadd.html", locals())
+
+
 def pujaedit(request, pujaid=None):
-    return redirect("/pujalist/")
+    puja = models.PujaUnit.objects.get(id=pujaid)
+
+    if request.method == "POST":
+        return redirect("/pujalist/")
+
+    return render(request, "pujaedit.html", locals())
 
 
 def pujadelete(request, pujaid=None):
@@ -40,8 +51,19 @@ def personlist(request):
     return render(request, "personlist.html", locals())
 
 
+def personadd(request):
+    if request.method == "POST":
+        return redirect("/personlist/")
+    return render(request, "personadd.html", locals())
+
+
 def personedit(request, personid=None):
-    return redirect("/personlist/")
+    person = models.PersonUnit.objects.get(id=personid)
+
+    if request.method == "POST":
+        return redirect("/personlist/")
+
+    return render(request, "personedit.html", locals())
 
 
 def persondelete(request, personid=None):
