@@ -27,6 +27,9 @@ def pujalist(request):
 
 def pujaadd(request):
     if request.method == "POST":
+        if request.POST["name"] == "":
+            return redirect("/pujalist/")
+
         puja = models.PujaUnit.objects.create(
                 year=request.POST["year"],
                 name=request.POST["name"],
@@ -51,6 +54,7 @@ def pujaedit(request, pujaid=None):
         puja.end = request.POST["end"]
         puja.save()
         return redirect("/pujalist/")
+
     return render(request, "pujaedit.html", locals())
 
 
@@ -69,7 +73,7 @@ def personadd(request):
     if request.method == "POST":
         person = models.PersonUnit.objects.create(
                 name=request.POST["name"],
-                person_id=request.POST["personid"],
+                person_id=IdEncode(request.POST["personid"]),
                 address=request.POST["address"],
                 contact=request.POST["phone"]
                 )
@@ -83,6 +87,11 @@ def personedit(request, personid=None):
     person = models.PersonUnit.objects.get(id=personid)
 
     if request.method == "POST":
+        person.name = request.POST["name"]
+        person.person_id = IdEncode(request.POST["personid"])
+        person.address = request.POST["address"]
+        person.contact = request.POST["phone"]
+        person.save()
         return redirect("/personlist/")
 
     return render(request, "personedit.html", locals())
@@ -152,4 +161,16 @@ def logout(request):
         del request.session["username"]
 
     return redirect("/login/")
+
+
+def IdEncode(personid=None):
+    string = ""
+
+    if ord(personid[0]) >= 65 and ord(personid[0] <= 90):
+        string += str(personid[0])
+        string += personid[1:]
+    else:
+        string += personid
+
+    return (hex(int(string)).upper() + hex(int(string[4:])).upper())
 
