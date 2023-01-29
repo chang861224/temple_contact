@@ -31,8 +31,8 @@ urlpatterns = [
 
     path("personlist/", views.personlist),
     path("personadd/", views.personadd),
-    path("personedit/<int:personid>", views.personedit),
-    path("persondelete/<int:personid>", views.persondelete),
+    path("personedit/<str:personid>", views.personedit),
+    path("persondelete/<str:personid>", views.persondelete),
 
     path("register/", views.register),
     path("login/", views.login),
