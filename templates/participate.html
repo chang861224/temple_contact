@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css %}
+<link href='{% static "css/participate.css" %}' rel="stylesheet" type="text/css" media="all">
+{% endblock %}
+
+{% block title %}
+<title>參與名單</title>
+{% endblock %}
+
+{% block fieldset_title %}參與名單{% endblock %}
+
+{% block content %}
+<div class='index'>
+    <div class="puja-list">
+        {% for puja in pujas %}
+        <p><a href="/participate/{{ puja.id }}">{{ puja.year }} - {{ puja.name }}</a></p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
