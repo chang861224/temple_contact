@@ -9,13 +9,17 @@ def homepage(request):
 
 def index(request, pujaid=None):
     if pujaid is not None:
-        datalist = models.DataUnit.objects.filter(puja__id=pujaid).order_by("id")
+        puja = models.PujaUnit.objects.get(id=pujaid)
+        datalist = models.DataUnit.objects.filter(puja=puja).order_by("id")
+        puja_name = "民國%d年 %s" % (puja.year, puja.name)
+    else:
+        puja_name = "請選擇法會"
         
     pujas = models.PujaUnit.objects.all()
 
     if request.method == "POST":
         puja_id = request.POST["puja_select"]
-        return redirect("/index/%d" % puja_id)
+        return redirect("/index/%s" % puja_id)
 
     return render(request, "index.html", locals())
 
@@ -32,7 +36,7 @@ def pujaadd(request):
 
         puja = models.PujaUnit.objects.create(
                 year=request.POST["year"],
-                name=request.POST["name"],
+                name=Id2Puja(request.POST["name"]),
                 start=request.POST["start"],
                 end=request.POST["end"]
                 )
@@ -48,9 +52,9 @@ def pujaedit(request, pujaid=None):
     end_date_str = str(puja.end)
 
     if request.method == "POST":
-        puja.year = request.POST["year"],
-        puja.name = request.POST["name"],
-        puja.start = request.POST["start"],
+        puja.year = request.POST["year"]
+        puja.name = Id2Puja(request.POST["name"])
+        puja.start = request.POST["start"]
         puja.end = request.POST["end"]
         puja.save()
         return redirect("/pujalist/")
@@ -84,11 +88,10 @@ def personadd(request):
 
 
 def personedit(request, personid=None):
-    person = models.PersonUnit.objects.get(id=personid)
+    person = models.PersonUnit.objects.get(person_id=personid)
 
     if request.method == "POST":
         person.name = request.POST["name"]
-        person.person_id = IdEncode(request.POST["personid"])
         person.address = request.POST["address"]
         person.contact = request.POST["phone"]
         person.save()
@@ -98,7 +101,7 @@ def personedit(request, personid=None):
 
 
 def persondelete(request, personid=None):
-    person = models.PersonUnit.objects.get(id=personid)
+    person = models.PersonUnit.objects.get(person_id=personid)
     person.delete()
     return redirect("/personlist/")
 
@@ -163,14 +166,31 @@ def logout(request):
     return redirect("/login/")
 
 
+def Id2Puja(pujaid=None):
+    string = ""
+
+    if pujaid == "01":
+        string += "法華法會"
+    elif pujaid == "02":
+        string += "藥師光明燈"
+    elif pujaid == "03":
+        string += "藥師法會"
+    elif pujaid == "04":
+        string += "梁皇法會"
+    elif pujaid == "07":
+        string += "盂蘭法會"
+
+    return string
+
+
 def IdEncode(personid=None):
     string = ""
 
-    if ord(personid[0]) >= 65 and ord(personid[0] <= 90):
-        string += str(personid[0])
+    if ord(personid[0]) >= 65 and ord(personid[0]) <= 90:
+        string += str(ord(personid[0]))
         string += personid[1:]
     else:
         string += personid
 
-    return (hex(int(string)).upper() + hex(int(string[4:])).upper())
+    return (hex(int(string)).upper() + hex(int(string[4:])).upper())[-8:]
 

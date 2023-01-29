@@ -13,11 +13,17 @@
 {% block content %}
 <div class='index'>
     <div class="select">
-        <form action="." method="POST">
+        <form action="/index/{{ puja.id }}" method="POST">
             {% csrf_token %}
             <select name="puja_select">
                 {% for puja in pujas %}
-                <option value="{{ puja.id }}">{{ puja.year }}-{{ puja.name }}</option>
+                
+                {% if puja.id == pujaid %}
+                <option type="int" value="{{ puja.id }}" selected>{{ puja.year }} - {{ puja.name }}</option>
+                {% else %}
+                <option type="int" value="{{ puja.id }}">{{ puja.year }} - {{ puja.name }}</option>
+                {% endif %}
+
                 {% endfor %}
             </select>
             
@@ -26,7 +32,7 @@
     </div>
 
     <div class="data-list">
-        <p class="puja-title">法會名稱</p>
+        <p class="puja-title">{{ puja_name }}</p>
 
         <table class="data-table">
             <tr>
