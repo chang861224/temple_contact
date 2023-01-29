@@ -14,32 +14,32 @@
 {% block content %}
 <div class='index'>
     <div class="puja-add">
-        <form action="." method="POST">
+        <form action="/pujaedit/{{ puja.id }}" method="POST">
             {% csrf_token %}
             <p>年度：<input name="year" type="number" min="105" max="150" value={{ puja.year }} required></p>
             <p>法會名稱：<select name="name">
                 <option value="" selected disabled>（請選擇）</option>
-                {% if puja.name == "01" %}
+                {% if puja.name == "法華法會" %}
                 <option value="01" selected>法華法會</option>
                 {% else %}
                 <option value="01">法華法會</option>
                 {% endif %}
-                {% if puja.name == "02" %}
+                {% if puja.name == "藥師光明燈" %}
                 <option value="02" selected>藥師光明燈</option>
                 {% else %}
                 <option value="02">藥師光明燈</option>
                 {% endif %}
-                {% if puja.name == "03" %}
+                {% if puja.name == "藥師法會" %}
                 <option value="03" selected>藥師法會</option>
                 {% else %}
                 <option value="03">藥師法會</option>
                 {% endif %}
-                {% if puja.name == "04" %}
+                {% if puja.name == "梁皇法會" %}
                 <option value="04" selected>梁皇法會</option>
                 {% else %}
                 <option value="04">梁皇法會</option>
                 {% endif %}
-                {% if puja.name == "07" %}
+                {% if puja.name == "盂蘭法會" %}
                 <option value="07" selected>盂蘭法會</option>
                 {% else %}
                 <option value="07">盂蘭法會</option>
