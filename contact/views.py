@@ -106,6 +106,15 @@ def persondelete(request, personid=None):
     return redirect("/personlist/")
 
 
+def participate(request, pujaid=None):
+    if pujaid is None:
+        pujas = models.PujaUnit.objects.all()
+        return render(request, "participate.html", locals())
+
+    puja = models.PujaUnit.objects.get(id=pujaid)
+    return render(request, "participateedit.html", locals())
+
+
 def register(request):
     message = ""
 
