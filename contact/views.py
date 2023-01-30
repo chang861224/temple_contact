@@ -35,8 +35,6 @@ def downloadData(request, pujaid=None):
 
     puja = models.PujaUnit.objects.get(id=pujaid)
     
-    #filename = "%d-%s.csv" % (puja.year, puja.name)
-    #content_disposition = "attachment; filename=\"%s.csv\"" % filename
     content_disposition = "attachment; filename=\"filename.csv\""
     response = HttpResponse(content_type="text/csv")
     response["Content-Disposition"] = content_disposition
@@ -301,5 +299,5 @@ def IdEncode(personid=None):
     else:
         string += personid
 
-    return (hex(int(string)).upper() + hex(int(string[4:])).upper())[-8:]
+    return (hex(int(string)).upper() + hex(int(string[4:]))[2:].upper())[-8:]
 
