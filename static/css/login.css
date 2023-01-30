@@ -1,7 +1,14 @@
 #login-form{
-    width: 100%;
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
     padding-top: 10px;
     padding-bottom: 10px;
 	text-align: center;
+}
+
+.loginPage td{
+    padding-top: 3px;
+    padding-bottom: 3px;
 }
 
