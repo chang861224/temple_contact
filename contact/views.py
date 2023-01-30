@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from contact import models
+import csv
 
 # Create your views here.
 def homepage(request):
@@ -22,6 +23,33 @@ def index(request, pujaid=None):
         return redirect("/index/%s" % puja_id)
 
     return render(request, "index.html", locals())
+
+
+def downloadData(request, pujaid=None):
+    puja = models.PujaUnit.objects.get(id=pujaid)
+    
+    #filename = "%d-%s.csv" % (puja.year, puja.name)
+    #content_disposition = "attachment; filename=\"%s.csv\"" % filename
+    content_disposition = "attachment; filename=\"filename.csv\""
+    response = HttpResponse(content_type="text/csv")
+    response["Content-Disposition"] = content_disposition
+    
+    writer = csv.writer(response)
+
+    title = ["姓名", "電話", "地址", "大牌/中牌"]
+    writer.writerow(title)
+        
+    datalist = models.DataUnit.objects.filter(puja=puja).order_by("person__address")
+
+    for data in datalist:
+        info = list()
+        info.append(data.person.name)
+        info.append(data.person.contact)
+        info.append(data.person.address)
+        info.append(data.info_type)
+        writer.writerow(info)
+
+    return response
 
 
 def pujalist(request):

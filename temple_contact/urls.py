@@ -23,6 +23,7 @@ urlpatterns = [
     path("", views.homepage),
     path("index/", views.index),
     path("index/<int:pujaid>", views.index),
+    path("download/<int:pujaid>", views.downloadData),
     
     path("pujalist/", views.pujalist),
     path("pujaadd/", views.pujaadd),
