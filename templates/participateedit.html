@@ -13,8 +13,40 @@
 
 {% block content %}
 <div class='index'>
+    <p class="previous"><a href="/participate/"> << 回上一頁</a></p>
+
+    <p class="puja-name">{{ puja.year }} - {{ puja.name }}：{{ selection_type }}選項</p>
+    
     <div class="person-list">
-        <p class="puja-name">{{ puja.year }} - {{ puja.name }}</p>
+        <form action="/participate/{{ puja.id }}/{{ participatetype }}" method="POST">
+            {% csrf_token %}
+            <input type="submit" value="儲存">
+
+            <table class="person-table">
+                {% for person in persons %}
+                <tr>
+                    <td>
+                        {% if person in participants %}
+
+                        {% if person in participants_in_type %}
+                        <input type="checkbox" id="{{ person.person_id }}" name="join" value="{{ person.person_id }}" checked>
+                        {% else %}
+                        <input type="checkbox" id="{{ person.person_id }}" name="join" value="{{ person.person_id }}" disabled>
+                        {% endif %}
+
+                        {% else %}
+                        <input type="checkbox" id="{{ person.person_id }}" name="join" value="{{ person.person_id }}">
+                        {% endif %}
+
+                        <label for="{{ person.person_id }}">{{ person.name }}（{{ person.person_id }}）</label>
+                    </td>
+                    <td>{{ person.address }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+
+            <input type="submit" value="儲存">
+        </form>
     </div>
 </div>
 {% endblock %}

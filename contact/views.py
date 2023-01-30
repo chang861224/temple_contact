@@ -10,7 +10,7 @@ def homepage(request):
 def index(request, pujaid=None):
     if pujaid is not None:
         puja = models.PujaUnit.objects.get(id=pujaid)
-        datalist = models.DataUnit.objects.filter(puja=puja).order_by("id")
+        datalist = models.DataUnit.objects.filter(puja=puja).order_by("person__address")
         puja_name = "民國%d年 %s" % (puja.year, puja.name)
     else:
         puja_name = "請選擇法會"
@@ -106,12 +106,50 @@ def persondelete(request, personid=None):
     return redirect("/personlist/")
 
 
-def participate(request, pujaid=None):
-    if pujaid is None:
+def participate(request, pujaid=None, participatetype=None):
+    if pujaid is None or participatetype is None:
         pujas = models.PujaUnit.objects.all()
         return render(request, "participate.html", locals())
 
+    selection_type = ""
+
+    if participatetype == "l":
+        selection_type += "大牌"
+    elif participatetype == "m":
+        selection_type += "中牌"
+
     puja = models.PujaUnit.objects.get(id=pujaid)
+    persons = models.PersonUnit.objects.all().order_by("address")
+    datalist = models.DataUnit.objects.filter(puja__id=pujaid)
+    participants = [data.person for data in datalist]
+    datalist = models.DataUnit.objects.filter(puja__id=pujaid, info_type=selection_type)
+    participants_in_type = [data.person for data in datalist]
+
+    if request.method == "POST":
+        checklist = request.POST.getlist("join")
+
+        for person in persons:
+            if person.person_id in checklist:
+                try:
+                    data = models.DataUnit.objects.get(person=person, puja=puja)
+                    data.info_type = selection_type
+                    data.save()
+                except:
+                    data = models.DataUnit.objects.create(
+                            person=person,
+                            puja=puja,
+                            info_type=selection_type
+                            )
+                    data.save()
+            else:
+                try:
+                    data = models.DataUnit.objects.get(person=person, puja=puja, info_type=selection_type)
+                    data.delete()
+                except:
+                    continue
+
+        return redirect("/participate/%d/%s" % (pujaid, participatetype))
+
     return render(request, "participateedit.html", locals())
 
 

@@ -14,9 +14,24 @@
 {% block content %}
 <div class='index'>
     <div class="puja-list">
-        {% for puja in pujas %}
-        <p><a href="/participate/{{ puja.id }}">{{ puja.year }} - {{ puja.name }}</a></p>
-        {% endfor %}
+        <table class="puja-table">
+            <tr>
+                <th>年度</th>
+                <th>法會名稱</th>
+                <th>大牌/中牌</th>
+            </tr>
+
+            {% for puja in pujas %}
+            <tr>
+                <td>{{ puja.year }}</td>
+                <td>{{ puja.name }}</td>
+                <td>
+                    <a href="/participate/{{ puja.id }}/l">大牌</a>
+                    <a href="/participate/{{ puja.id }}/m">中牌</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
     </div>
 </div>
 {% endblock %}

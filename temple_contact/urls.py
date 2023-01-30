@@ -35,7 +35,7 @@ urlpatterns = [
     path("persondelete/<str:personid>", views.persondelete),
 
     path("participate/", views.participate),
-    path("participate/<int:pujaid>", views.participate),
+    path("participate/<int:pujaid>/<str:participatetype>", views.participate),
 
     path("register/", views.register),
     path("login/", views.login),

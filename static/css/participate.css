@@ -1,0 +1,70 @@
+.puja-list{
+    width: 50%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-left: 25%;
+    padding-right: 25%;
+}
+
+.puja-name{
+    padding-bottom: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    color: blue;
+}
+
+.person-list{
+    width: 90%;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.puja-table,
+.person-table{
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.puja-table th{
+    font-size: 14px;
+    background-color: #70b9dd;
+}
+
+.person-table td{
+    width: 50%;
+}
+
+.puja-table th:first-child,
+.puja-table td:first-child{
+    width: 25%;
+}
+
+.puja-table th:last-child,
+.puja-table td:last-child{
+    width: 30%;
+}
+
+.puja-table td:nth-child(2),
+.person-table td{
+    padding-top: 3px;
+    padding-bottom: 3px;
+    text-align: left;
+}
+
+.puja-table tr:nth-child(2n-1),
+.person-table tr:nth-child(2n-1){
+    background-color: rgb(216, 214, 215);
+}
+
+.puja-table tr:nth-child(2n),
+.person-table tr:nth-child(2n){
+    background-color: rgb(236, 236, 236);
+}
+
+.previous{
+    text-align: left;
+}
+
