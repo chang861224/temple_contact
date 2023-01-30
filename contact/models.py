@@ -28,6 +28,6 @@ class DataUnit(models.Model):
     info_type = models.CharField(max_length=5, null=False)
 
     def __str__(self):
-        return "%s-%s" % (person.__str__(), puja.__str__())
+        return "%s (%s) -> %d-%s" % (self.person.name, self.person.person_id, self.puja.year, self.puja.name)
 
 
