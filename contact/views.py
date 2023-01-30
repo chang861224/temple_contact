@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.contrib import auth
 from django.http import HttpResponse
 from contact import models
 import csv
@@ -9,6 +10,9 @@ def homepage(request):
 
 
 def index(request, pujaid=None):
+    if not request.user.is_authenticated:
+        return redirect("/login")
+
     if pujaid is not None:
         puja = models.PujaUnit.objects.get(id=pujaid)
         datalist = models.DataUnit.objects.filter(puja=puja).order_by("person__address")
@@ -26,6 +30,9 @@ def index(request, pujaid=None):
 
 
 def downloadData(request, pujaid=None):
+    if not request.user.is_authenticated:
+        return redirect("/login")
+
     puja = models.PujaUnit.objects.get(id=pujaid)
     
     #filename = "%d-%s.csv" % (puja.year, puja.name)
@@ -53,11 +60,17 @@ def downloadData(request, pujaid=None):
 
 
 def pujalist(request):
+    if not request.user.is_authenticated:
+        return redirect("/login")
+
     pujas = models.PujaUnit.objects.all()
     return render(request, "pujalist.html", locals())
 
 
 def pujaadd(request):
+    if not request.user.is_authenticated:
+        return redirect("/login")
+
     if request.method == "POST":
         if request.POST["name"] == "":
             return redirect("/pujalist/")
@@ -75,6 +88,9 @@ def pujaadd(request):
 
 
 def pujaedit(request, pujaid=None):
+    if not request.user.is_authenticated:
+        return redirect("/login")
+
     puja = models.PujaUnit.objects.get(id=pujaid)
     start_date_str = str(puja.start)
     end_date_str = str(puja.end)
@@ -91,17 +107,26 @@ def pujaedit(request, pujaid=None):
 
 
 def pujadelete(request, pujaid=None):
+    if not request.user.is_authenticated:
+        return redirect("/login")
+
     puja = models.PujaUnit.objects.get(id=pujaid)
     puja.delete()
     return redirect("/pujalist/")
 
 
 def personlist(request):
+    if not request.user.is_authenticated:
+        return redirect("/login")
+
     persons = models.PersonUnit.objects.all()
     return render(request, "personlist.html", locals())
 
 
 def personadd(request):
+    if not request.user.is_authenticated:
+        return redirect("/login")
+
     if request.method == "POST":
         person = models.PersonUnit.objects.create(
                 name=request.POST["name"],
@@ -116,6 +141,9 @@ def personadd(request):
 
 
 def personedit(request, personid=None):
+    if not request.user.is_authenticated:
+        return redirect("/login")
+
     person = models.PersonUnit.objects.get(person_id=personid)
 
     if request.method == "POST":
@@ -129,12 +157,18 @@ def personedit(request, personid=None):
 
 
 def persondelete(request, personid=None):
+    if not request.user.is_authenticated:
+        return redirect("/login")
+
     person = models.PersonUnit.objects.get(person_id=personid)
     person.delete()
     return redirect("/personlist/")
 
 
 def participate(request, pujaid=None, participatetype=None):
+    if not request.user.is_authenticated:
+        return redirect("/login")
+
     if pujaid is None or participatetype is None:
         pujas = models.PujaUnit.objects.all()
         return render(request, "participate.html", locals())
@@ -216,7 +250,7 @@ def login(request):
     if request.method == "POST":
         username = request.POST["username"].strip()
         password = request.POST["password"]
-        user = authenticate(username=username, password=password)
+        user = auth.authenticate(username=username, password=password)
 
         if user is not None:
             if user.is_active:
@@ -238,7 +272,7 @@ def logout(request):
     if "username" in request.session:
         del request.session["username"]
 
-    return redirect("/login/")
+    return redirect("/index/")
 
 
 def Id2Puja(pujaid=None):
