@@ -70,3 +70,10 @@
     background-color: rgb(236, 236, 236);
 }
 
+.download{
+    position: relative;
+    right: 5%;
+    text-align: right;
+    text-decoration: underline;
+}
+

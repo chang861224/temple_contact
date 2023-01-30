@@ -54,5 +54,9 @@
             {% endfor %}
         </table>
     </div>
+
+    {% if pujaid != None %}
+    <p class="download"><a href="/download/{{ pujaid }}">資料下載</a></p>
+    {% endif %}
 </div>
 {% endblock %}
