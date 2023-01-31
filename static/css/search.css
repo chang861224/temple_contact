@@ -62,10 +62,9 @@
     width: 20%;
 }
 
-.data-list td:first-child,
-.data-list td:nth-child(2),
-.data-list td:last-child,
-.person-list td:last-child{
-    text-align: center;
+.data-list td:nth-child(3),
+.person-list td:first-child,
+.person-list td:nth-child(2){
+    text-align: left;
 }
 
