@@ -31,6 +31,9 @@
         </form>
     </div>
 
+    <p class="participate"><a href="/participate/">編輯參加名單</a></p>
+
+    {% if pujaid != None %}
     <div class="data-list">
         <p class="puja-title">{{ puja_name }}</p>
 
@@ -55,7 +58,6 @@
         </table>
     </div>
 
-    {% if pujaid != None %}
     <p class="download"><a href="/download/{{ pujaid }}">資料下載</a></p>
     {% endif %}
 </div>
