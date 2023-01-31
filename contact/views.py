@@ -342,5 +342,12 @@ def IdEncode(personid=None):
     else:
         string += personid
 
-    return (hex(int(string)).upper() + hex(int(string[4:]))[2:].upper())[-8:]
+    string = f(string)
+    return hex(string).upper()[3:]
+
+def f(string=None):
+    int_string = int(string)
+    int_string += 30000000000
+    int_string += 105703009
+    return int_string
 
