@@ -191,6 +191,10 @@ BASE LAYOUT
     text-align: center;
 }
 
+.previous{
+    text-align: left;
+}
+
 /* FOOTER */
 #footer{
     padding-top: 10px;

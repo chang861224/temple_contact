@@ -13,6 +13,8 @@
 
 {% block content %}
 <div class='index'>
+    <p class="previous"><a href="/pujalist/"> << 回上一頁</a></p>
+
     <div class="puja-add">
         <form action="/pujaedit/{{ puja.id }}" method="POST">
             {% csrf_token %}
