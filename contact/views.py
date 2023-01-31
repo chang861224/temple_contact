@@ -57,6 +57,49 @@ def downloadData(request, pujaid=None):
     return response
 
 
+def search(request, searchquery=None):
+    if not request.user.is_authenticated:
+        return redirect("/login")
+
+    if request.method == "POST":
+        query = request.POST["query"]
+
+        if query == "":
+            return redirect("/search/")
+
+        return redirect("/search/%s" % query)
+
+    if searchquery:
+        message = ""
+        results = list()
+
+        # Name -> Data
+        datalist = models.DataUnit.objects.all().order_by("person__address", "person__name")
+        
+        for data in datalist:
+            if searchquery in data.person.name:
+                results.append(data)
+
+        if len(results) > 0:
+            message += "name"
+            return render(request, "search.html", locals())
+
+        # Address -> Person
+        datalist = models.PersonUnit.objects.all().order_by("address", "name")
+        
+        for data in datalist:
+            if searchquery in data.address:
+                results.append(data)
+
+        if len(results) > 0:
+            message += "address"
+            return render(request, "search.html", locals())
+
+        message += "沒有找到相符項目"
+
+    return render(request, "search.html", locals())
+
+
 def pujalist(request):
     if not request.user.is_authenticated:
         return redirect("/login")

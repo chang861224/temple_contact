@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+<title>資料查詢</title>
+{% endblock %}
+
+{% block css %}
+<link href='{% static "css/search.css" %}' rel='stylesheet' type='text/css' media='all'>
+{% endblock %}
+
+{% block fieldset_title %}資料查詢{% endblock %}
+
+{% block content %}
+<div id="index">
+    <form action='/search/' method="POST">
+        {% csrf_token %}
+        <p class="search-bar">
+            請輸入查詢姓名/地址：<input name="query" size="50">
+            <input type="submit" value="查詢">
+        </p>
+    </form>
+
+    {% if searchquery is not None %}
+    <div class="display">
+        <p class="search-query">已搜尋：{{ searchquery }}</p>
+
+        {% if message == "name" %}
+        <!-- Name -> Data -->
+        <table class="data-list list-table">
+            <tr>
+                <th>年度</th>
+                <th>法會名稱</th>
+                <th>姓名</th>
+                <th>大牌/中牌</th>
+            </tr>
+
+            {% for data in results %}
+            <tr>
+                <td>{{ data.puja.year }}</td>
+                <td>{{ data.puja.name }}</td>
+                <td>{{ data.person.name }}（{{ data.person.person_id }}）</td>
+                <td>{{ data.info_type }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% elif message == "address" %}
+        <!-- Address -> Person -->
+        <table class="person-list list-table">
+            <tr>
+                <th>姓名</th>
+                <th>地址</th>
+                <th>電話</th>
+            </tr>
+            
+            {% for data in results %}
+            <tr>
+                <td>{{ data.name }}（{{ data.person_id }}）</td>
+                <td>{{ data.address }}</td>
+                <td>{{ data.contact }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% else %}
+        <p class="message">{{ message }}</p>
+        {% endif %}
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

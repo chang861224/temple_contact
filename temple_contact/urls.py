@@ -24,6 +24,9 @@ urlpatterns = [
     path("index/", views.index),
     path("index/<int:pujaid>", views.index),
     path("download/<int:pujaid>", views.downloadData),
+
+    path("search/", views.search),
+    path("search/<str:searchquery>", views.search),
     
     path("pujalist/", views.pujalist),
     path("pujaadd/", views.pujaadd),
