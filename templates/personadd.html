@@ -18,10 +18,10 @@
     <div class="person-add">
         <form action="." method="POST">
             {% csrf_token %}
-            <p>姓名：<input name="name" required></p>
-            <p>身份證字號/法人證號：<input name="personid" required></p>
+            <p>*姓名：<input name="name" required></p>
+            <p>*身份證字號/法人證號：<input name="personid" required></p>
             <p>電話：<input name="phone"></p>
-            <p>地址：<input name="address" size="50" required></p>
+            <p>*地址：<input name="address" size="50" required></p>
             <p>
                 <input type="reset" value="清除">
                 <input type="submit" value="送出">
