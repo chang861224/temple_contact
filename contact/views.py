@@ -263,7 +263,7 @@ def register(request):
         username = request.POST["username"]
 
         try:
-            user = User.objects.get(username=username)
+            user = auth.models.User.objects.get(username=username)
         except:
             user = None
 
@@ -275,7 +275,7 @@ def register(request):
                 message = "密碼不相符！請再試一次！"
                 return render(request, "register.html", locals())
             else:
-                user = User.objects.create_user(request.POST["username"], request.POST["email"], request.POST["password"])
+                user = auth.models.User.objects.create_user(request.POST["username"], request.POST["email"], request.POST["password"])
                 user.first_name = request.POST["first_name"]
                 user.last_name = request.POST["last_name"]
                 user.is_staff = False
