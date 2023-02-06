@@ -3,6 +3,9 @@ from django.contrib import auth
 from django.http import HttpResponse
 from contact import models
 import csv
+import random
+import string
+from datetime import datetime
 
 # Create your views here.
 def homepage(request):
@@ -168,15 +171,25 @@ def personadd(request):
     if not request.user.is_authenticated:
         return redirect("/login")
 
+    message = ""
+
     if request.method == "POST":
-        person = models.PersonUnit.objects.create(
-                name=request.POST["name"],
-                person_id=IdEncode(request.POST["personid"]),
-                address=request.POST["address"],
-                contact=request.POST["phone"]
-                )
-        person.save()
-        return redirect("/personlist/")
+        try:
+            person = models.PersonUnit.objects.get(name=request.POST["name"], address=request.POST["address"], contact=request.POST["phone"])
+        except:
+            person = None
+
+        if person is None:
+            person = models.PersonUnit.objects.create(
+                    name=request.POST["name"],
+                    person_id=PersonIdGenerator(datetime.now().timestamp()),
+                    address=request.POST["address"],
+                    contact=request.POST["phone"]
+                    )
+            person.save()
+            return redirect("/personlist/")
+
+        message = "已有名為 %s 的人員！編號為 %s ！" % (person.name, person.person_id)
 
     return render(request, "personadd.html", locals())
 
@@ -333,21 +346,9 @@ def Id2Puja(pujaid=None):
     return string
 
 
-def IdEncode(personid=None):
-    string = ""
-
-    if ord(personid[0]) >= 65 and ord(personid[0]) <= 90:
-        string += str(ord(personid[0]))
-        string += personid[1:]
-    else:
-        string += personid
-
-    string = f(string)
-    return hex(string).upper()[3:]
-
-def f(string=None):
-    int_string = int(string)
-    int_string += 30000000000
-    int_string += 105703009
-    return int_string
+def PersonIdGenerator(input_seed=105703009):
+    random.seed(input_seed)
+    candidate_letters = string.ascii_uppercase + string.digits
+    letter_list = [ random.choice(candidate_letters) for _ in range(10) ]
+    return "".join(letter_list)
 
