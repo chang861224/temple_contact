@@ -15,6 +15,7 @@ class PujaUnit(models.Model):
     # puja = 法會
     year = models.IntegerField(default=112, null=False)
     name = models.CharField(max_length=10, null=False)
+    puja_id = models.CharField(primary_key=True, max_length=10, null=False)
     start = models.DateField(null=False)
     end = models.DateField(null=False)
 
@@ -25,6 +26,7 @@ class PujaUnit(models.Model):
 class DataUnit(models.Model):
     person = models.ForeignKey("PersonUnit", on_delete=models.CASCADE, null=False)
     puja = models.ForeignKey("PujaUnit", on_delete=models.CASCADE, null=False)
+    data_id = models.CharField(primary_key=True, max_length=30, null=False)
     info_type = models.CharField(max_length=5, null=False)
 
     def __str__(self):

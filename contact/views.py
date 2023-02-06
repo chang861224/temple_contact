@@ -119,13 +119,29 @@ def pujaadd(request):
         if request.POST["name"] == "":
             return redirect("/pujalist/")
 
+        last_puja = models.PujaUnit.objects.filter(name=Id2Puja(request.POST["name"])).order_by("year")
+        last_puja = last_puja[-1] if len(last_puja) > 0 else None
+
         puja = models.PujaUnit.objects.create(
                 year=request.POST["year"],
                 name=Id2Puja(request.POST["name"]),
+                puja_id="%d%s" % (request.POST["year"], request.POST["name"]),
                 start=request.POST["start"],
                 end=request.POST["end"]
                 )
         puja.save()
+
+        if last_puja is not None:
+            datalist = models.DataUnit.objects.filter(puja=last_puja)
+
+            for data in datalist:
+                new_data = models.DataUnit.objects.create(
+                        person=data.person,
+                        puja=puja,
+                        info_type=data.info_type
+                        )
+                new_data.save()
+
         return redirect("/pujalist/")
 
     return render(request, "pujaadd.html", locals())
@@ -245,21 +261,24 @@ def participate(request, pujaid=None, participatetype=None):
         checklist = request.POST.getlist("join")
 
         for person in persons:
+            d_id = "%s%s" % (puja.puja_id, person.person_id)
+            
             if person.person_id in checklist:
                 try:
-                    data = models.DataUnit.objects.get(person=person, puja=puja)
+                    data = models.DataUnit.objects.get(data_id=d_id)
                     data.info_type = selection_type
                     data.save()
                 except:
                     data = models.DataUnit.objects.create(
                             person=person,
                             puja=puja,
+                            data_id=d_id,
                             info_type=selection_type
                             )
                     data.save()
             else:
                 try:
-                    data = models.DataUnit.objects.get(person=person, puja=puja, info_type=selection_type)
+                    data = models.DataUnit.objects.get(data_id=d_id)
                     data.delete()
                 except:
                     continue

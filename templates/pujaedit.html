@@ -18,6 +18,7 @@
     <div class="puja-add">
         <form action="/pujaedit/{{ puja.id }}" method="POST">
             {% csrf_token %}
+            <p>編號：{{ puja.puja_id }}</p>
             <p>年度：<input name="year" type="number" min="105" max="150" value={{ puja.year }} required></p>
             <p>法會名稱：<select name="name">
                 <option value="" selected disabled>（請選擇）</option>
