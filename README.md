@@ -30,13 +30,13 @@ Da-Chih Temple (大智寺), which is located in Chubei, Hsinchu County, wants to
 
 ### Chang, Chi-Hung (張麒竑)
 
-Master Deg.
-Dept. of Computer Science
+Master Deg. <br>
+Dept. of Computer Science <br>
 National Chengchi University (NCCU), Taiwan
 
 
 ## Copyrights
 
-[chang861224/temple_contact](https://github.com/chang861224/temple_contact)
+[chang861224/temple_contact](https://github.com/chang861224/temple_contact) <br>
 Copyrights &copy; chihung (CCH) all rights reserved.
 
