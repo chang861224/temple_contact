@@ -18,7 +18,7 @@
     <p class="puja-name">{{ puja.year }} - {{ puja.name }}：{{ selection_type }}選項</p>
     
     <div class="person-list">
-        <form action="/participate/{{ puja.id }}/{{ participatetype }}" method="POST">
+        <form action="/participate/{{ puja.puja_id }}/{{ participatetype }}" method="POST">
             {% csrf_token %}
             <input type="submit" value="儲存">
 

@@ -17,7 +17,7 @@ def index(request, pujaid=None):
         return redirect("/login")
 
     if pujaid is not None:
-        puja = models.PujaUnit.objects.get(id=pujaid)
+        puja = models.PujaUnit.objects.get(puja_id=pujaid)
         datalist = models.DataUnit.objects.filter(puja=puja).order_by("person__address")
         puja_name = "民國%d年 %s" % (puja.year, puja.name)
     else:
@@ -36,7 +36,7 @@ def downloadData(request, pujaid=None):
     if not request.user.is_authenticated:
         return redirect("/login")
 
-    puja = models.PujaUnit.objects.get(id=pujaid)
+    puja = models.PujaUnit.objects.get(puja_id=pujaid)
     
     content_disposition = "attachment; filename=\"filename.csv\""
     response = HttpResponse(content_type="text/csv")
@@ -120,12 +120,13 @@ def pujaadd(request):
             return redirect("/pujalist/")
 
         last_puja = models.PujaUnit.objects.filter(name=Id2Puja(request.POST["name"])).order_by("year")
-        last_puja = last_puja[-1] if len(last_puja) > 0 else None
+        last_puja = last_puja.last() if last_puja.count() > 0 else None
+                
 
         puja = models.PujaUnit.objects.create(
                 year=request.POST["year"],
                 name=Id2Puja(request.POST["name"]),
-                puja_id="%d%s" % (request.POST["year"], request.POST["name"]),
+                puja_id="%s%s" % (request.POST["year"], request.POST["name"]),
                 start=request.POST["start"],
                 end=request.POST["end"]
                 )
@@ -138,6 +139,7 @@ def pujaadd(request):
                 new_data = models.DataUnit.objects.create(
                         person=data.person,
                         puja=puja,
+                        data_id="%s%s" % (puja.puja_id, data.person.person_id),
                         info_type=data.info_type
                         )
                 new_data.save()
@@ -151,7 +153,7 @@ def pujaedit(request, pujaid=None):
     if not request.user.is_authenticated:
         return redirect("/login")
 
-    puja = models.PujaUnit.objects.get(id=pujaid)
+    puja = models.PujaUnit.objects.get(puja_id=pujaid)
     start_date_str = str(puja.start)
     end_date_str = str(puja.end)
 
@@ -170,7 +172,7 @@ def pujadelete(request, pujaid=None):
     if not request.user.is_authenticated:
         return redirect("/login")
 
-    puja = models.PujaUnit.objects.get(id=pujaid)
+    puja = models.PujaUnit.objects.get(puja_id=pujaid)
     puja.delete()
     return redirect("/pujalist/")
 
@@ -250,11 +252,11 @@ def participate(request, pujaid=None, participatetype=None):
     elif participatetype == "m":
         selection_type += "中牌"
 
-    puja = models.PujaUnit.objects.get(id=pujaid)
+    puja = models.PujaUnit.objects.get(puja_id=pujaid)
     persons = models.PersonUnit.objects.all().order_by("address")
-    datalist = models.DataUnit.objects.filter(puja__id=pujaid)
+    datalist = models.DataUnit.objects.filter(puja__puja_id=pujaid)
     participants = [data.person for data in datalist]
-    datalist = models.DataUnit.objects.filter(puja__id=pujaid, info_type=selection_type)
+    datalist = models.DataUnit.objects.filter(puja__puja_id=pujaid, info_type=selection_type)
     participants_in_type = [data.person for data in datalist]
 
     if request.method == "POST":
@@ -278,7 +280,7 @@ def participate(request, pujaid=None, participatetype=None):
                     data.save()
             else:
                 try:
-                    data = models.DataUnit.objects.get(data_id=d_id)
+                    data = models.DataUnit.objects.get(data_id=d_id, info_type=selection_type)
                     data.delete()
                 except:
                     continue

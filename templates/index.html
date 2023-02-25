@@ -13,15 +13,15 @@
 {% block content %}
 <div class='index'>
     <div class="select">
-        <form action="/index/{{ puja.id }}" method="POST">
+        <form action="/index/" method="POST">
             {% csrf_token %}
             <select name="puja_select">
                 {% for puja in pujas %}
                 
-                {% if puja.id == pujaid %}
-                <option type="int" value="{{ puja.id }}" selected>{{ puja.year }} - {{ puja.name }}</option>
+                {% if puja.puja_id == pujaid %}
+                <option type="int" value="{{ puja.puja_id }}" selected>{{ puja.year }} - {{ puja.name }}</option>
                 {% else %}
-                <option type="int" value="{{ puja.id }}">{{ puja.year }} - {{ puja.name }}</option>
+                <option type="int" value="{{ puja.puja_id }}">{{ puja.year }} - {{ puja.name }}</option>
                 {% endif %}
 
                 {% endfor %}
